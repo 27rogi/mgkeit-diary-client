@@ -1,0 +1,89 @@
+@import 'vue-select/dist/vue-select.css';
+@import 'select';
+
+body {
+  @apply font-sans bg-bg-900 text-bg-50 selection:bg-primary-600 selection:text-bg-50;
+}
+
+.section {
+  @apply w-full flex flex-col p-4 text-2xl gap-2;
+}
+
+.editor {
+  @apply flex flex-col gap-2 p-6;
+  .editor--title {
+    @apply text-white text-4xl font-bold mb-2;
+    span {
+      @apply text-primary-400;
+    }
+  }
+  .editor--section {
+    @apply flex flex-col gap-2;
+    .section--title {
+      @apply text-2xl font-semibold;
+    }
+  }
+  .editor--actions {
+    @apply mt-6 flex flex-row gap-2 items-center;
+    .button {
+      @apply w-full;
+    }
+  }
+}
+
+.card-grid {
+  @apply flex flex-row w-full gap-2;
+  .card {
+    @apply w-3/12 flex flex-col gap-1 p-4 bg-bg-700 hover:bg-bg-600/80 rounded-xl text-bg-100/90 text-lg font-semibold;
+    .card--icon {
+      img {
+        @apply rounded-full;
+      }
+    }
+    .card--title {
+      @apply text-xl font-bold text-bg-50;
+    }
+    .card--section {
+      @apply flex flex-col gap-2;
+    }
+  }
+}
+
+.button {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-3 bg-bg-600 hover:bg-bg-500/80 text-bg-50 font-semibold rounded-xl;
+  &__action {
+    @apply text-white bg-primary-600 hover:bg-primary-500;
+  }
+  &__hollow {
+    @apply bg-transparent hover:bg-bg-50/5;
+  }
+}
+
+.input {
+  @apply flex border-none font-semibold bg-bg-600 text-bg-50 rounded-xl leading-tight py-2.5 px-4;
+}
+
+.auth-container {
+  @apply h-screen flex flex-col justify-center items-center;
+  .auth {
+    @apply w-full max-w-xl flex flex-col gap-2 bg-bg-700 p-4 rounded-xl text-xl;
+    h1 {
+      @apply font-bold leading-normal text-3xl;
+    }
+    .auth--section {
+      @apply flex flex-col gap-1;
+      .section--title {
+        @apply font-semibold;
+      }
+    }
+    .auth--actions {
+      @apply flex flex-row gap-2 mt-2;
+    }
+    .auth--problems {
+      @apply flex flex-col gap-2;
+      .problem {
+        @apply flex bg-red-600 rounded-xl text-bg-50 p-2 font-bold;
+      }
+    }
+  }
+}

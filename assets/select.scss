@@ -1,0 +1,32 @@
+.vs__search::placeholder,
+.vs__dropdown-toggle,
+.vs__dropdown-menu {
+  @apply border-none font-semibold bg-bg-600 text-bg-50 rounded-xl leading-tight;
+}
+
+.vs__search::placeholder,
+.vs__dropdown-toggle {
+  @apply p-2;
+}
+
+.vs--single.vs--loading .vs__selected,
+.vs--single.vs--open .vs__selected {
+  @apply relative;
+}
+
+.vs__dropdown-menu {
+  @apply p-2 rounded-t-none;
+}
+
+.vs__selected {
+  @apply text-bg-50 hover:bg-bg-100/20 rounded-xl;
+}
+
+.vs__dropdown-option {
+  @apply hover:bg-bg-100/20 rounded-xl;
+}
+
+.vs__clear,
+.vs__open-indicator {
+  @apply fill-bg-50;
+}

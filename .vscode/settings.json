@@ -1,0 +1,16 @@
+{
+  "files.associations": {},
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.ts": "vscode-typescript",
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_attributes": "auto"
+    }
+  },
+  "eslint.validate": ["vue", "html", "javascript", "typescript", "javascriptreact", "typescriptreact"],
+  "editor.formatOnSave": true,
+  "vetur.format.options.tabSize": 4,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
