@@ -64,6 +64,11 @@ export default Vue.extend({
     this.groups = (await this.$axios.$get(process.env.apiUrl + '/groups')).items
     if (this.groups) this.user.group = this.groups[0].groupId
   },
+  head() {
+    return {
+      title: 'Авторизация',
+    }
+  },
   methods: {
     login() {
       this.errors = []
@@ -78,5 +83,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style lang="scss"></style>

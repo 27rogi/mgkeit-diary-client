@@ -29,38 +29,86 @@ body {
       @apply w-full;
     }
   }
+
+  .editor--schedule {
+    .editor--days {
+      @apply grid grid-cols-7 w-full gap-2;
+    }
+    .editor--lessons {
+      @apply grid grid-cols-4 w-full gap-2;
+      .lesson {
+        @apply flex flex-col gap-2 w-full bg-bg-700 p-4 rounded-xl;
+        .lesson--section {
+          @apply flex flex-col gap-1;
+          &__replacement {
+            @apply p-4 rounded-xl bg-bg-800;
+          }
+        }
+      }
+    }
+  }
+
+  .editor--error {
+    @apply flex bg-red-600 rounded-xl text-bg-50 p-2 font-bold;
+  }
 }
 
 .card-grid {
-  @apply flex flex-row w-full gap-2;
+  @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 auto-rows-max flex-wrap w-full gap-2;
   .card {
-    @apply w-3/12 flex flex-col gap-1 p-4 bg-bg-700 hover:bg-bg-600/80 rounded-xl text-bg-100/90 text-lg font-semibold;
+    @apply relative flex flex-col gap-0.5 p-4 bg-bg-700 hover:bg-bg-600/80 rounded-xl text-bg-100/90 text-lg font-semibold;
     .card--icon {
       img {
         @apply rounded-full;
       }
     }
     .card--title {
-      @apply text-xl font-bold text-bg-50;
+      @apply text-xl font-bold text-bg-50 my-2;
     }
     .card--section {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-1;
+    }
+    .card--del {
+      @apply absolute right-0 top-0 flex flex-col m-4;
+    }
+    span {
+      @apply text-primary-500;
     }
   }
 }
 
 .button {
-  @apply inline-flex items-center justify-center gap-2 px-4 py-3 bg-bg-600 hover:bg-bg-500/80 text-bg-50 font-semibold rounded-xl;
+  @apply text-center inline-flex items-center justify-center gap-2 px-4 py-3 bg-bg-600 hover:bg-bg-500/80 text-bg-50 font-semibold rounded-xl;
   &__action {
     @apply text-white bg-primary-600 hover:bg-primary-500;
   }
   &__hollow {
     @apply bg-transparent hover:bg-bg-50/5;
   }
+  &__danger {
+    @apply text-white bg-red-700 hover:bg-red-600;
+  }
 }
 
 .input {
-  @apply flex border-none font-semibold bg-bg-600 text-bg-50 rounded-xl leading-tight py-2.5 px-4;
+  @apply flex border-none font-semibold bg-bg-600 text-bg-50 rounded-xl leading-tight px-4 py-3;
+}
+
+.input--user {
+  @apply flex flex-row items-center gap-2;
+  img {
+    @apply rounded-full;
+  }
+}
+
+.info {
+  @apply flex flex-col w-full bg-bg-300/20 font-semibold my-2 p-4 rounded-xl items-center justify-center text-center;
+  &__warning {
+    @apply bg-orange-500/20;
+  }
+  &__sm {
+    @apply my-1 p-2;
+  }
 }
 
 .auth-container {

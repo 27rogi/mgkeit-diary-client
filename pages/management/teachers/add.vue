@@ -18,7 +18,20 @@
           :reduce="(teacher) => teacher.userId"
           :selectable="(teacher) => teacher.teacherInfo === null"
           required
-        ></VueSelect>
+        >
+          <template #option="option">
+            <div class="input--user">
+              <Avatar :width="32" :name="option.fio" :unique-code="option.userId" :bg-color="option.userId.substr(option.userId.length - 3)" />
+              <p>{{ option.fio }}</p>
+            </div>
+          </template>
+          <template #selected-option="option">
+            <div class="input--user">
+              <Avatar :width="32" :name="option.fio" :unique-code="option.userId" :bg-color="option.userId.substr(option.userId.length - 3)" />
+              <p>{{ option.fio }}</p>
+            </div>
+          </template>
+        </VueSelect>
       </div>
       <div class="editor--section">
         <p class="section--title">Специальность</p>
@@ -41,6 +54,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'EditTeacher',
+  middleware: ['auth', 'approved', 'permissions'],
   data() {
     return {
       response: null,
@@ -52,6 +66,9 @@ export default Vue.extend({
         workStartDate: null,
       },
     }
+  },
+  meta: {
+    permissions: ['teachers.manage'],
   },
   async fetch() {
     this.$data.teachers = await this.$axios

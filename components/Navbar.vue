@@ -21,10 +21,12 @@
           }"
         >
           <div class="navbar--dropdown">
-            <nuxt-link v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.title" :to="dropdownItem.path" class="navbar--item">
-              <component :is="dropdownItem.icon" v-if="dropdownItem.icon" />
-              {{ dropdownItem.title }}
-            </nuxt-link>
+            <template v-for="dropdownItem in item.dropdownItems">
+              <nuxt-link v-if="(dropdownItem.permissions && hasPermissions(dropdownItem.permissions)) || !dropdownItem.permissions" :key="dropdownItem.title" :to="dropdownItem.path" class="navbar--item">
+                <component :is="dropdownItem.icon" v-if="dropdownItem.icon" />
+                {{ dropdownItem.title }}
+              </nuxt-link>
+            </template>
           </div>
           <p slot="reference" class="navbar--item"><component :is="item.icon" v-if="item.icon" /> {{ item.title }}</p>
         </Popper>
@@ -34,7 +36,7 @@
       <Popper
         trigger="clickToToggle"
         :options="{
-          placement: 'bottom',
+          placement: 'bottom-start',
           modifiers: { offset: { offset: '0,4px' } },
         }"
       >
@@ -55,7 +57,8 @@
 
 <script lang="ts">
 import Popper from 'vue-popperjs'
-import { HomeIcon, DoorExitIcon, UserSearchIcon, PlusIcon, ListIcon, EditCircleIcon } from 'vue-tabler-icons'
+import { HomeIcon, DoorExitIcon, UserSearchIcon, ListIcon, EditCircleIcon, ClockIcon, WritingIcon, ListNumbersIcon, } from 'vue-tabler-icons'
+import Logo from '@/components/Logo.vue'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -65,6 +68,9 @@ export default Vue.extend({
     DoorExitIcon,
     UserSearchIcon,
     Popper,
+    ClockIcon,
+    WritingIcon,
+    ListNumbersIcon,
   },
   data() {
     return {
@@ -73,62 +79,91 @@ export default Vue.extend({
           {
             title: 'Главная страница',
             path: '/',
-            icon: HomeIcon,
+            icon: Logo,
+          },
+          {
+            title: 'Расписание',
+            path: '/schedules',
+            icon: ClockIcon,
+            permissions: ['schedules.menu'],
+          },
+          {
+            title: 'Домашние задания',
+            path: '/homeworks',
+            icon: WritingIcon,
+            permissions: ['homeworks.menu'],
+          },
+          {
+            title: 'Оценки',
+            path: '/grades',
+            icon: ListNumbersIcon,
+            permissions: ['grades.menu'],
           },
           {
             title: 'Панель управления',
             icon: EditCircleIcon,
+            permissions: ['panel.access'],
             dropdownItems: [
               {
                 title: 'Управление уроками',
-                path: '/account/me',
+                path: '/management/schedules',
                 icon: ListIcon,
+                permissions: ['panel.access'],
               },
               {
                 title: 'Управление звонками',
-                path: '/account/me',
+                path: '/management/bells',
                 icon: ListIcon,
-              },
-              {
-                title: 'Управление группами',
-                path: '/account/me',
-                icon: ListIcon,
+                permissions: ['panel.access'],
               },
               {
                 title: 'Управление заданиями',
-                path: '/account/me',
+                path: '/management/homeworks',
                 icon: ListIcon,
-              },
-              {
-                title: 'Управление заменами',
-                path: '/account/me',
-                icon: ListIcon,
+                permissions: ['panel.access'],
               },
               {
                 title: 'Управление предметами',
-                path: '/account/me',
+                path: '/management/subjects',
                 icon: ListIcon,
+                permissions: ['subjects.manage', 'panel.access'],
+              },
+              {
+                title: 'Управление оценками',
+                path: '/management/grades',
+                icon: ListIcon,
+                permissions: ['panel.access'],
               },
             ],
           },
           {
             title: 'Администрирование',
             icon: EditCircleIcon,
+            permissions: ['panel.admin'],
             dropdownItems: [
               {
-                title: 'Управление ролями',
-                path: '/account/me',
+                title: 'Управление группами',
+                path: '/management/groups',
                 icon: ListIcon,
+                permissions: ['panel.admin'],
+              },
+              {
+                title: 'Управление ролями',
+                path: '/management/roles',
+                icon: ListIcon,
+                permissions: ['panel.admin'],
               },
               {
                 title: 'Управление данными учителей',
                 path: '/management/teachers',
                 icon: ListIcon,
+                permissions: ['panel.admin'],
               },
               {
                 title: 'Управление пользователями',
-                path: '/account/me',
+                path: '/management/users',
                 icon: ListIcon,
+                permissions: ['panel.admin'],
               },
             ],
           },
@@ -160,7 +195,7 @@ export default Vue.extend({
 .navbar {
   @apply relative z-40 mx-auto flex flex-row w-full bg-transparent p-4 border-bg-200/20 border-b-[1px];
   .navbar--items {
-    @apply flex flex-row;
+    @apply relative flex flex-row;
     .navbar--item {
       @apply cursor-pointer flex flex-row items-center gap-2 p-2 rounded-xl hover:bg-bg-50/10 font-semibold;
       img {
@@ -171,7 +206,7 @@ export default Vue.extend({
       @apply ml-auto;
     }
     .navbar--dropdown {
-      @apply max-w-xs flex flex-col bg-bg-700 p-2 rounded-xl shadow-bg-900/30 shadow-lg;
+      @apply w-[20rem] flex flex-col bg-bg-700 p-2 rounded-xl shadow-bg-900/30 shadow-lg;
     }
   }
 }

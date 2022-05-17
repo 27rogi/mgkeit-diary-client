@@ -18,6 +18,11 @@ export default Vue.extend({
   layout: 'unauthorized',
   middleware: ['auth'],
   auth: true,
+  head() {
+    return {
+      title: 'Выход',
+    }
+  },
   methods: {
     logout() {
       this.$auth.logout()

@@ -3,7 +3,7 @@
     <div v-if="$route.query.type === 'permissions'" class="error error__permissions">
       <h1>Недостаточно прав для просмотра данной страницы!</h1>
       <p>Отсутствующие права: {{ $route.query.required }}</p>
-      <nuxt-link to="/" class="button">На главную страницу</nuxt-link>
+      <nuxt-link to="/" class="button">На главную</nuxt-link>
     </div>
     <div v-else-if="$route.query.type === 'not_approved'" class="error error__approval">
       <h1>Аккаунт ожидает одобрения.</h1>
@@ -31,7 +31,7 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .error-wrapper {
   @apply h-screen flex flex-col justify-center items-center;
   .error {

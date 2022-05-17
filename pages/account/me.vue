@@ -63,10 +63,15 @@ export default Vue.extend({
   async fetch() {
     this.account = await this.$axios.$get(process.env.apiUrl + '/auth/me')
   },
+  head() {
+    return {
+      title: 'Персональные данные',
+    }
+  },
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .account {
   @apply w-full items-center flex flex-col gap-4 text-4xl font-semibold p-6;
   .account--fio {

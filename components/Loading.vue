@@ -43,13 +43,13 @@
     </template>
     <div v-else-if="$props.fetchState.error" class="loading loading__error">
       <div class="error-container">
-        <h1>Упс, произошла ошибка при загрузке!</h1>
+        <h1>Упс, ошибка при загрузке!</h1>
         <div v-if="$props.fetchState.error.message == 403" class="error-container--message">
-          <p><b>Ошибка 403</b>. У вас отсутствует доступ.</p>
+          <p><b>Ошибка 403</b>. У вас отсутствуют необходимые права для доступа к странице.</p>
         </div>
         <div v-if="$props.fetchState.error.message == 400" class="error-container--message">
           <p>
-            <b>Ошибка 403</b>. Возникла проблема при проверке введенной информации на сервере, возможно, некоторые данные введены неверно или у
+            <b>Ошибка 400</b>. Возникла проблема при проверке введенной информации на сервере, возможно, некоторые данные введены неверно или у
             вас нет прав доступа.
           </p>
         </div>
@@ -62,11 +62,11 @@
         <slot name="error" />
         <div class="flex flex-row gap-2 mt-4">
           <button type="button" class="button" @click.prevent="$router.app.refresh()">Попробовать еще раз</button>
-          <nuxt-link to="/" class="button button__hollow">На главную</nuxt-link>
+          <button type="button" class="button button__hollow" @click.prevent="$router.push(-1)">Назад</button>
         </div>
       </div>
     </div>
-    <div v-else-if="isReady" class="loaded">
+    <div v-else-if="isReady">
       <slot name="content" />
     </div>
   </div>
@@ -92,7 +92,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .loading {
-  @apply overflow-hidden w-full h-full flex flex-col items-center justify-center z-40 absolute inset-0 text-bg-50;
+  @apply overflow-hidden w-full h-full flex flex-col items-center justify-center z-30 absolute inset-0 text-bg-50;
   .loading--image {
     @apply p-6 rounded-xl bg-bg-700 shadow-xl shadow-bg-900/30;
   }

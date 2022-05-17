@@ -7,7 +7,7 @@
         </div>
       </template>
       <h1 class="editor--title">
-        Редактирование <span>{{ data.teacher.fio }}</span>
+        Редактирование данных <span>{{ data.teacher.fio }}</span>
       </h1>
       <div class="editor--section">
         <p class="section--title">Специальность</p>
@@ -30,6 +30,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'EditTeacher',
+  middleware: ['auth', 'approved', 'permissions'],
   data() {
     return {
       response: null,
@@ -43,6 +44,9 @@ export default Vue.extend({
 
     data.workStartDate = this.$moment(data.workStartDate).format('YYYY-MM-DD')
     this.$data.data = data
+  },
+  meta: {
+    permissions: ['teachers.manage'],
   },
   methods: {
     async save() {

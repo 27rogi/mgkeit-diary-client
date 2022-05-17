@@ -19,7 +19,10 @@
 }
 
 .vs__selected {
-  @apply text-bg-50 hover:bg-bg-100/20 rounded-xl;
+  @apply bg-primary-600/80 text-white hover:bg-bg-100/20 rounded-xl;
+  .vs__deselect svg {
+    @apply text-white fill-white;
+  }
 }
 
 .vs__dropdown-option {
