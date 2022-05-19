@@ -34,7 +34,7 @@
           }"
           @onSelect="onSelect"
         >
-          <h1 slot="header">Управление домашним заданием</h1>
+          <h1 slot="header">Управление расписанием</h1>
           <VueSelect
             v-if="groups"
             id="group_select"

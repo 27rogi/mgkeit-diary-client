@@ -114,7 +114,7 @@ export default Vue.extend({
                 title: 'Управление звонками',
                 path: '/management/bells',
                 icon: ListIcon,
-                permissions: ['panel.access'],
+                permissions: ['bells.manage', 'panel.access'],
               },
               {
                 title: 'Управление заданиями',
