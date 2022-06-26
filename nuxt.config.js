@@ -27,7 +27,7 @@ export default {
 
   env: {
     // адрес, по которому будет работать серверное приложение
-    apiUrl: process.env.API_URL || 'http://localhost:3000',
+    apiUrl: process.env.API_URL || 'https://api.ryzhenkov.space',
   },
 
   // для одновременной работы серверного и клиентского
@@ -72,10 +72,10 @@ export default {
           property: false,
         },
         endpoints: {
-          login: { url: 'http://localhost:3000/auth/login', method: 'post' },
-          refresh: { url: 'http://localhost:3000/auth/refresh', method: 'post' },
-          user: { url: 'http://localhost:3000/auth/me', method: 'get' },
-          logout: { url: 'http://localhost:3000/auth/logout', method: 'post' },
+          login: { url: 'https://api.ryzhenkov.space/auth/login', method: 'post' },
+          refresh: { url: 'https://api.ryzhenkov.space/auth/refresh', method: 'post' },
+          user: { url: 'https://api.ryzhenkov.space/auth/me', method: 'get' },
+          logout: { url: 'https://api.ryzhenkov.space/auth/logout', method: 'post' },
         },
       },
     },

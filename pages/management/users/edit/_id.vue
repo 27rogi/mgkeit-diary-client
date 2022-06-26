@@ -94,7 +94,7 @@ export default Vue.extend({
     async save() {
       const { address, fio, role, group } = this.$data.data
 
-      let newData = { address, fio, role, group }
+      let newData = { address, fio, role, group: group.groupId }
       if (this.$data.password) {
         newData = await Object.defineProperty(newData, 'password', {
           value: this.$data.password,

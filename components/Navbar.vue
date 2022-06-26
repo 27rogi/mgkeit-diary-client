@@ -171,7 +171,7 @@ export default Vue.extend({
         userzone: [
           {
             title: 'Персональные данные',
-            path: '/account/me',
+            path: '/account/' + this.$auth.user.userId,
             icon: UserSearchIcon,
           },
           {

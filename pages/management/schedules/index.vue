@@ -5,23 +5,13 @@
         <ManagementPanel
           :sort-options="[
             {
-              title: 'По группе',
-              field: 'group.name',
+              title: 'По названию',
+              field: 'data.name',
               sort: 'asc',
             },
             {
-              title: 'По группе (убыв.)',
-              field: 'group.name',
-              sort: 'desc',
-            },
-            {
-              title: 'По предмету',
-              field: 'subject.name',
-              sort: 'asc',
-            },
-            {
-              title: 'По предмету (убыв.)',
-              field: 'subject.name',
+              title: 'По названию (убыв.)',
+              field: 'data.name',
               sort: 'desc',
             },
           ]"

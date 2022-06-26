@@ -1,32 +1,32 @@
 <template>
   <Loading :fetch-state="$fetchState">
-    <div v-if="account" slot="content" class="account">
-      <div class="account--fio">
+    <div v-if="account && hasAccess" slot="content" class="account">
+      <div v-if="account.userId" class="account--fio">
         <h1>{{ account.fio }}</h1>
         <Avatar :width="64" :name="account.fio" :unique-code="account.userId" :bg-color="account.userId.substr(account.userId.length - 3)" />
       </div>
-      <div class="account--item">
+      <div v-if="account.birthday" class="account--item">
         <p class="item--name"><CakeIcon size="48px" /> Дата рождения:</p>
         <p class="item--value">{{ account.birthday }}</p>
       </div>
-      <div class="account--item">
+      <div v-if="account.address" class="account--item">
         <p class="item--name"><AddressBookIcon size="48px" /> Адрес проживания:</p>
         <p class="item--value">{{ account.address }}</p>
       </div>
-      <div class="account--item">
-        <p class="item--name"><LockSquareIcon size="48px" /> Ваша роль:</p>
+      <div v-if="account.role && account.role.roleId" class="account--item">
+        <p class="item--name"><LockSquareIcon size="48px" /> Роль:</p>
         <p :style="`background: #${account.role.roleId.substr(account.role.roleId.length - 3)};`" class="text-white item--value">
           {{ account.role.name }}
         </p>
       </div>
-      <div class="account--item">
-        <p class="item--name"><UsersIcon size="48px" /> Ваша группа:</p>
+      <div v-if="account.group && account.group.groupId" class="account--item">
+        <p class="item--name"><UsersIcon size="48px" /> Группа:</p>
         <p :style="`background: #${account.group.groupId.substr(account.group.groupId.length - 3)};`" class="text-white item--value">
           {{ account.group.name }}
         </p>
       </div>
-      <div v-if="account.owner && account.owner.length > 0" class="account--item">
-        <p class="item--name"><FileCertificateIcon size="48px" /> Вы руководите группами:</p>
+      <div v-if="account.owner && account.owner.length > 0 && account.group.groupId" class="account--item">
+        <p class="item--name"><FileCertificateIcon size="48px" /> Руководитель групп:</p>
         <p
           v-for="group in account.owner"
           :key="group.groupId"
@@ -37,12 +37,21 @@
         </p>
       </div>
     </div>
+    <div v-else-if="!hasAccess" slot="content" class="error">
+      <p>У вас нет прав на просмотр этой страницы!</p>
+    </div>
   </Loading>
 </template>
 
 <script lang="ts">
 import { CakeIcon, FileCertificateIcon, AddressBookIcon, UsersIcon, LockSquareIcon } from 'vue-tabler-icons'
 import Vue from 'vue'
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    hasPermissions: (role: any, permissions: any) => boolean
+  }
+}
 
 export default Vue.extend({
   name: 'UserPage',
@@ -61,12 +70,27 @@ export default Vue.extend({
     }
   },
   async fetch() {
-    this.account = await this.$axios.$get(process.env.apiUrl + '/auth/me')
+    this.$data.account = await this.$axios.$get(process.env.apiUrl + `/users/${this.$route.params.id}`).catch((err) => {
+      throw new Error(err.response.status)
+    })
   },
   head() {
     return {
-      title: 'Персональные данные',
+      title: 'Страница профиля',
     }
+  },
+  computed: {
+    hasAccess() {
+      if (!this.$data.account) return false
+      if (this.$data.account.userId === this.$auth.user.userId) return true
+      if (this.$data.account.role.permissions.includes('teacher')) return true
+      return this.hasPermissions(this.$auth.user.role, ['panel.admin'])
+    },
+  },
+  methods: {
+    hasPermissions(role, permissions): boolean {
+      return permissions.every((perm: string) => role.permissions.includes(perm))
+    },
   },
 })
 </script>
